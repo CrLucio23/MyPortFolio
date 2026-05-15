@@ -18,16 +18,28 @@ export default function About() {
 
       <div className="info-cards">
         <div className="mini-card">
-          <h3>Eleganza</h3>
-          <p>Uno stile raffinato, pulito e premium, basato sul verde bottiglia.</p>
+          <h3>Formazione</h3>
+          <p>
+            Studente di Informatica L-31 presso l’Università degli Studi di
+            Salerno. Diplomato come Perito Informatico presso l’I.I.S. Antonio
+            Pacinotti di Scafati.
+          </p>
         </div>
         <div className="mini-card">
-          <h3>Personalità</h3>
-          <p>Un modo moderno per raccontare chi sei, i tuoi interessi e la tua visione.</p>
+          <h3>Esperienza</h3>
+          <p>
+            Stage di 4 mesi in Belgio presso Bravo Discovery, dove mi sono
+            occupato della manutenzione di un sito WordPress, gestione email e
+            supporto in lingua inglese.
+          </p>
         </div>
         <div className="mini-card">
-          <h3>Presenza</h3>
-          <p>Una vetrina digitale pensata per lasciare un’impressione seria e curata.</p>
+          <h3>Progetti</h3>
+          <p>
+            Ho sviluppato una logica in Java per un sistema di accesso tramite
+            impronta digitale, pensato per l’apertura automatizzata di un
+            tornello in palestra.
+          </p>
         </div>
       </div>
     </section>

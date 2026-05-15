@@ -40,12 +40,13 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.3 }}
           className="hero-buttons"
         >
-          <a href="/about" className="btn btn-primary">
+          <Link to="/about" className="btn btn-primary">
             Scopri chi sono <ArrowRight size={18} />
-          </a>
-          <a href="/contact" className="btn btn-secondary">
+          </Link>
+
+          <Link to="/contact" className="btn btn-secondary">
             I miei contatti
-          </a>
+          </Link>
         </motion.div>
       </div>
 
@@ -66,7 +67,11 @@ export default function Hero() {
             ease: "easeInOut",
           }}
         >
-          <img src={profileImg} alt="Foto profilo portfolio" className="hero-photo" />
+          <img
+            src={profileImg}
+            alt="Foto profilo portfolio"
+            className="hero-photo"
+          />
           <div className="hero-photo-overlay"></div>
         </motion.div>
 
