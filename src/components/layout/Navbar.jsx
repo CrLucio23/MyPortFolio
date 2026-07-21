@@ -1,19 +1,15 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export default function Navbar() {
   return (
     <header className="navbar">
-      <div className="container nav-inner">
-        <Link to="/" className="brand">
-          Portfolio
-        </Link>
-
-        <nav className="nav-links">
-          <Link to="/">Home</Link>
-          <Link to="/about">Chi sono</Link>
-          <Link to="/contact">Contatti</Link>
-        </nav>
-      </div>
+      <span className="nav-monogram" aria-hidden="true">LC</span>
+      <nav className="nav-links" aria-label="Navigazione principale">
+        <NavLink to="/" end>Home</NavLink>
+        <NavLink to="/about">Chi sono</NavLink>
+        <NavLink to="/contact">Contatti</NavLink>
+      </nav>
+      <span className="nav-index" aria-hidden="true">01 — 03</span>
     </header>
   );
 }
