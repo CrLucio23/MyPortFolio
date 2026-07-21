@@ -137,6 +137,10 @@ a {
   transform: translateY(-2px);
 }
 
+.btn:active {
+  transform: translateY(-1px) scale(0.98);
+}
+
 .btn-primary {
   background: var(--primary);
   color: white;

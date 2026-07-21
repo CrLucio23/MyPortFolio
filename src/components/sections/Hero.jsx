@@ -47,6 +47,15 @@ export default function Hero() {
           <Link to="/contact" className="btn btn-secondary">
             I miei contatti
           </Link>
+
+          <a
+            href={profile.curriculum}
+            download="Curriculum_Luciano_Cretella.pdf"
+            className="btn btn-secondary"
+            aria-label="Scarica il Curriculum di Luciano Cretella in formato PDF"
+          >
+            Scarica il Curriculum
+          </a>
         </motion.div>
       </div>
 

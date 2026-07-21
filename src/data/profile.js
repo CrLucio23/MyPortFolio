@@ -3,6 +3,7 @@ export const profile = {
   role: "Studente appassionato del mondo tech e informatico",
   tagline:
     "Un CV interattivo elegante per raccontare chi sono, cosa mi appassiona e dove trovarmi.",
+  curriculum: "/Curriculum_Luciano_Cretella.pdf",
   about: `
     Mi presento come uno studente appassionato del mondo tech e informatico.
     Mi piace esplorare la programmazione, il design digitale e tutto ciò che unisce
