@@ -1,19 +1,23 @@
-import { motion } from "framer-motion";
-import { profile } from "../../data/profile";
+import { Code2, PanelsTopLeft, Braces } from "lucide-react";
+
+const skills = [
+  { icon: PanelsTopLeft, title: "Interfacce web", text: "Strutture chiare, layout responsive e attenzione ai dettagli che rendono un sito piacevole da usare.", tools: ["HTML & CSS", "Web design"] },
+  { icon: Code2, title: "Sviluppo & logica", text: "Dal ragionamento al codice: costruire funzionalità, risolvere problemi e continuare a sperimentare.", tools: ["JavaScript", "Java"] },
+  { icon: Braces, title: "Gestione dei contenuti", text: "Esperienza pratica nella manutenzione di siti e nella gestione di contenuti e strumenti digitali.", tools: ["WordPress", "Supporto web"] },
+];
 
 export default function Skills() {
   return (
-    <section id="skills" className="section-block">
-      <div className="skills-panel">
-        <p className="section-label">Interessi & competenze</p>
-        <h2>Gli strumenti con cui do forma alle idee.</h2>
-        <div className="skills-list">
-          {profile.skills.map((skill, index) => (
-            <motion.span key={skill} initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.08, duration: 0.35 }} className="skill-pill">
-              <span>{String(index + 1).padStart(2, "0")}</span>{skill}
-            </motion.span>
-          ))}
-        </div>
+    <section id="skills" className="skills-section" aria-labelledby="skills-heading">
+      <div className="section-heading"><div><p className="section-label">Competenze & strumenti</p><h2 id="skills-heading">Gli strumenti. <em>Il metodo.</em></h2></div><p>Una base solida,<br />la voglia di andare oltre.</p></div>
+      <div className="skills-list">
+        {skills.map(({ icon: Icon, title, text, tools }) => (
+          <article className="skill-item" key={title}>
+            <Icon size={24} strokeWidth={1.4} aria-hidden="true" />
+            <h3>{title}</h3><p>{text}</p>
+            <ul className="skill-tags" aria-label={`Strumenti per ${title.toLowerCase()}`}>{tools.map(tool => <li key={tool}>{tool}</li>)}</ul>
+          </article>
+        ))}
       </div>
     </section>
   );
