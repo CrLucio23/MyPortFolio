@@ -1,7 +1,15 @@
-1) Apri il terminale nella cartella Portfolio
-2) Esegui: npm run dev
+PORTFOLIO DI LUCIANO CRETELLA
 
-Per personalizzare:
-- nome e testi: src/data/profile.js
-- colori e stile: src/styles/globals.css
-- sezioni: src/components/sections/
+Avvio: npm install, quindi npm run dev.
+Build: npm run build.
+Test: npm test (installare prima i browser Playwright, come descritto in README.md).
+
+Dati e link: src/data/profile.js
+Tutti i testi italiani/inglesi: src/i18n/messages.js
+Stili e responsive: src/styles/globals.css
+
+Il selettore IT/EN mantiene la scelta durante la navigazione.
+Link condivisibili: /?lang=it oppure /?lang=en.
+Il CV scaricabile e l'immagine del gestionale sono risorse originali in italiano.
+
+Documentazione completa: README.md.

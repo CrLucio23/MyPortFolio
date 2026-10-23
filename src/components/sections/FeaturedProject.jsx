@@ -1,31 +1,102 @@
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Circle } from "@phosphor-icons/react";
 import { profile } from "../../data/profile";
+import { useLanguage } from "../../i18n/LanguageProvider";
+import ActionLink from "../ui/ActionLink";
+import Reveal from "../ui/Reveal";
 
 export default function FeaturedProject() {
-  const { project } = profile;
+  const { copy } = useLanguage();
   return (
-    <section id="projects" className="project-section" aria-labelledby="project-heading">
-      <div className="section-heading">
-        <div><p className="section-label">01 — Progetto in evidenza</p><h2 id="project-heading">Dalle idee, <em>al web.</em></h2></div>
-        <p>Un progetto reale.<br />Il mio modo di mettermi in gioco.</p>
-      </div>
-      <article className="featured-project">
-        <a className="project-preview" href={project.url} target="_blank" rel="noopener noreferrer" aria-label="Visita Luto Atelier, sito di LuTo Flow (si apre in una nuova scheda)">
-          <div className="project-preview-top"><span>LuTo Flow</span><span>Il digitale, pensato con cura.</span></div>
-          <div className="browser-preview">
-            <div className="browser-bar"><span className="browser-dots" aria-hidden="true"><i /><i /><i /></span><span>lutoatelier.it</span><ArrowUpRight size={12} aria-hidden="true" /></div>
-            <img src="/images/luto-dashboard.png" alt="Anteprima del gestionale LuTo Flow presentato su Luto Atelier, con lavori, appuntamenti e attività" width="1440" height="940" loading="lazy" />
-          </div>
-          <span className="preview-link">Esplora il progetto <ArrowUpRight size={17} aria-hidden="true" /></span>
-        </a>
-        <div className="project-details">
-          <div className="project-kicker"><span className="status-dot" /> Sito online<span className="project-number">/ 01</span></div>
-          <h3>{project.name}<span>Il progetto LuTo Flow</span></h3>
-          <p>{project.description}</p>
-          <dl className="project-meta"><div><dt>Il mio ruolo</dt><dd>{project.role}</dd></div><div><dt>Ambito</dt><dd>Web · Esperienza digitale</dd></div></dl>
-          <a className="project-visit" href={project.url} target="_blank" rel="noopener noreferrer">Visita {project.domain}<ArrowUpRight size={20} aria-hidden="true" /></a>
+    <section
+      className="section featured-project"
+      id="projects"
+      aria-labelledby="project-title"
+    >
+      <Reveal className="section-heading">
+        <div>
+          <p className="eyebrow">{copy.project.label}</p>
+          <h2 id="project-title">
+            {copy.project.title}
+            <em>{copy.project.accent}</em>
+          </h2>
         </div>
-      </article>
+        <p className="section-intro">{copy.project.intro}</p>
+      </Reveal>
+      <Reveal>
+        <article className="project-card">
+          <a
+            className="project-canvas"
+            href={profile.project.url}
+            target="_blank"
+            rel="noreferrer"
+            aria-label={`${copy.project.preview} (${copy.common.newTab})`}
+          >
+            <div className="canvas-topline">
+              <span>{copy.project.previewLabel}</span>
+              <span className="live-badge">
+                <span className="status-dot" />
+                {copy.project.live}
+              </span>
+            </div>
+            <div className="browser-frame">
+              <div className="browser-toolbar" aria-hidden="true">
+                <span className="browser-dots">
+                  <i />
+                  <i />
+                  <i />
+                </span>
+                <span>lutoatelier.it</span>
+                <Circle size={12} />
+              </div>
+              <img
+                src="/images/luto-dashboard.png"
+                alt={copy.project.imageAlt}
+                width="1440"
+                height="940"
+                loading="lazy"
+              />
+            </div>
+            <div className="canvas-caption">
+              <span>{copy.project.canvasLabel}</span>
+              <span className="canvas-arrow">
+                <ArrowUpRight size={26} aria-hidden="true" />
+              </span>
+            </div>
+          </a>
+          <div className="project-content">
+            <p className="eyebrow">{copy.project.category}</p>
+            <h3>
+              {profile.project.name}
+              <span aria-hidden="true">↗</span>
+            </h3>
+            <p className="project-subtitle">{copy.project.subtitle}</p>
+            <p className="project-description">{copy.project.description}</p>
+            <dl className="project-details">
+              <div>
+                <dt>{copy.project.roleLabel}</dt>
+                <dd>{copy.project.role}</dd>
+              </div>
+              <div>
+                <dt>{copy.project.scopeLabel}</dt>
+                <dd>{copy.project.scope}</dd>
+              </div>
+            </dl>
+            <ActionLink
+              className="btn-primary"
+              href={profile.project.url}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {copy.project.visit}
+              <span className="sr-only"> ({copy.common.newTab})</span>
+            </ActionLink>
+          </div>
+        </article>
+      </Reveal>
+      <p className="project-footnote">
+        <span>{copy.project.previewCaption}</span>
+        <span>{copy.project.imageNote}</span>
+      </p>
     </section>
   );
 }

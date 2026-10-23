@@ -1,23 +1,46 @@
-import { Code2, PanelsTopLeft, Braces } from "lucide-react";
+import { Browsers, Code, PencilSimpleLine } from "@phosphor-icons/react";
+import { useLanguage } from "../../i18n/LanguageProvider";
+import Reveal from "../ui/Reveal";
 
-const skills = [
-  { icon: PanelsTopLeft, title: "Interfacce web", text: "Strutture chiare, layout responsive e attenzione ai dettagli che rendono un sito piacevole da usare.", tools: ["HTML & CSS", "Web design"] },
-  { icon: Code2, title: "Sviluppo & logica", text: "Dal ragionamento al codice: costruire funzionalità, risolvere problemi e continuare a sperimentare.", tools: ["JavaScript", "Java"] },
-  { icon: Braces, title: "Gestione dei contenuti", text: "Esperienza pratica nella manutenzione di siti e nella gestione di contenuti e strumenti digitali.", tools: ["WordPress", "Supporto web"] },
-];
+const icons = [Browsers, Code, PencilSimpleLine];
 
 export default function Skills() {
+  const { copy } = useLanguage();
   return (
-    <section id="skills" className="skills-section" aria-labelledby="skills-heading">
-      <div className="section-heading"><div><p className="section-label">Competenze & strumenti</p><h2 id="skills-heading">Gli strumenti. <em>Il metodo.</em></h2></div><p>Una base solida,<br />la voglia di andare oltre.</p></div>
+    <section className="section skills-section" aria-labelledby="skills-title">
+      <Reveal className="section-heading">
+        <div>
+          <p className="eyebrow">{copy.skills.label}</p>
+          <h2 id="skills-title">
+            {copy.skills.title}
+            <em>{copy.skills.accent}</em>
+          </h2>
+        </div>
+        <p className="section-intro">{copy.skills.intro}</p>
+      </Reveal>
       <div className="skills-list">
-        {skills.map(({ icon: Icon, title, text, tools }) => (
-          <article className="skill-item" key={title}>
-            <Icon size={24} strokeWidth={1.4} aria-hidden="true" />
-            <h3>{title}</h3><p>{text}</p>
-            <ul className="skill-tags" aria-label={`Strumenti per ${title.toLowerCase()}`}>{tools.map(tool => <li key={tool}>{tool}</li>)}</ul>
-          </article>
-        ))}
+        {copy.skills.items.map((skill, index) => {
+          const Icon = icons[index];
+          return (
+            <Reveal key={index} delay={index * 0.04}>
+              <article className="skill-row">
+                <span className="skill-icon">
+                  <Icon size={28} weight="light" aria-hidden="true" />
+                </span>
+                <h3>{skill.title}</h3>
+                <p>{skill.text}</p>
+                <ul
+                  className="skill-tools"
+                  aria-label={`${copy.skills.toolsLabel} ${skill.title}`}
+                >
+                  {skill.tools.map((tool) => (
+                    <li key={tool}>{tool}</li>
+                  ))}
+                </ul>
+              </article>
+            </Reveal>
+          );
+        })}
       </div>
     </section>
   );

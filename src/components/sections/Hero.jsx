@@ -1,34 +1,108 @@
-import { motion } from "framer-motion";
-import { ArrowDown, ArrowDownToLine, ArrowUpRight } from "lucide-react";
+import {
+  ArrowDownRight,
+  DownloadSimple,
+  Asterisk,
+} from "@phosphor-icons/react";
+import photo from "../../assets/profile.jpg";
 import { profile } from "../../data/profile";
-import profileImg from "../../assets/profile.jpg";
+import { useLanguage } from "../../i18n/LanguageProvider";
+import Reveal from "../ui/Reveal";
+import ActionLink from "../ui/ActionLink";
 
 export default function Hero() {
+  const { copy, localPath } = useLanguage();
   return (
-    <section id="home" className="hero" aria-labelledby="hero-title">
-      <motion.div className="hero-text" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-        <p className="section-label hero-eyebrow"><span className="status-dot" /> Informatica, web & design</p>
-        <h1 id="hero-title">Tra logica<br />e <em>creatività.</em></h1>
-        <p className="hero-description">Sono <strong>Luciano Cretella.</strong> {profile.tagline}</p>
-        <div className="hero-buttons">
-          <a href="#projects" className="btn btn-primary">Esplora i miei progetti <ArrowDown size={16} aria-hidden="true" /></a>
-          <a href={profile.curriculum} download="Curriculum_Luciano_Cretella.pdf" className="text-link">Scarica il CV <ArrowDownToLine size={15} aria-hidden="true" /></a>
-        </div>
-        <a href={profile.project.url} target="_blank" rel="noopener noreferrer" className="creator-link"><span className="creator-mark" aria-hidden="true">lt.</span><span>Creatore di <strong>{profile.project.domain}</strong></span><ArrowUpRight size={15} aria-hidden="true" /></a>
-      </motion.div>
-      <motion.div className="hero-visual" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.12 }}>
-        <div className="portrait-topline"><span>Curiosità, metodo, nuove idee.</span><span aria-hidden="true">01 / LC</span></div>
-        <div className="hero-photo-frame">
-          <img src={profileImg} alt="Ritratto di Luciano Cretella" className="hero-photo" width="1600" height="1550" fetchPriority="high" />
-          <div className="hero-photo-caption"><span>Un’idea alla volta.<br /><strong>Un progetto alla volta.</strong></span><span className="portrait-asterisk" aria-hidden="true">✳</span></div>
-        </div>
-        <div className="portrait-note"><span className="status-dot" /> Aperto a nuove opportunità</div>
-      </motion.div>
-      <div className="hero-facts" aria-label="Il mio percorso in breve">
-        <div><span className="fact-index">01 / FORMAZIONE</span><p>Informatica <span>· Università di Salerno</span></p></div>
-        <div><span className="fact-index">02 / ESPERIENZA</span><p>Belgio <span>· 4 mesi di stage</span></p></div>
-        <div><span className="fact-index">03 / PROGETTO</span><a href={profile.project.url} target="_blank" rel="noopener noreferrer">Luto Atelier <ArrowUpRight size={16} aria-hidden="true" /></a></div>
+    <section className="hero" aria-labelledby="hero-title">
+      <div className="hero-grid">
+        <Reveal className="hero-copy">
+          <p className="eyebrow">
+            <span className="status-dot" />
+            {copy.hero.eyebrow}
+          </p>
+          <h1 id="hero-title">
+            {copy.hero.title}
+            <em>{copy.hero.accent}</em>
+          </h1>
+          <p className="hero-intro">
+            {copy.hero.intro} <strong>{profile.name}.</strong>
+          </p>
+          <p className="hero-description">{copy.hero.description}</p>
+          <div className="hero-actions">
+            <ActionLink
+              to={localPath("/#projects")}
+              className="btn-primary"
+              icon={ArrowDownRight}
+            >
+              {copy.hero.projects}
+            </ActionLink>
+            <a className="download-link" href={profile.curriculum} download>
+              <DownloadSimple size={21} aria-hidden="true" />
+              <span>
+                {copy.common.cv}
+                <small>{copy.common.cvFormat}</small>
+              </span>
+            </a>
+          </div>
+        </Reveal>
+        <Reveal className="portrait-composition" delay={0.12}>
+          <div className="portrait-topline">
+            <span>{copy.hero.portraitLabel}</span>
+            <span aria-hidden="true">01 — LC</span>
+          </div>
+          <div className="portrait-frame">
+            <div className="portrait-photo">
+              <img
+                src={photo}
+                alt={copy.common.portrait}
+                width="1600"
+                height="1550"
+                fetchPriority="high"
+              />
+              <div className="portrait-tag">
+                <Asterisk size={18} aria-hidden="true" />
+                {copy.hero.portraitTag}
+              </div>
+              <p className="portrait-signature">{copy.hero.signature}</p>
+            </div>
+            <div className="portrait-bottomline">
+              <span>{copy.hero.portraitNote}</span>
+              <ArrowDownRight size={22} aria-hidden="true" />
+            </div>
+          </div>
+          <span className="portrait-mark" aria-hidden="true">
+            <Asterisk size={64} weight="thin" />
+          </span>
+        </Reveal>
       </div>
+      <Reveal>
+        <dl className="hero-facts" aria-label={copy.hero.factsLabel}>
+          {copy.hero.facts.map((fact, index) => (
+            <div key={index}>
+              <dt>
+                <span className="fact-number" aria-hidden="true">
+                  0{index + 1}
+                </span>
+                {fact.label}
+              </dt>
+              <dd>
+                {index === 2 ? (
+                  <a
+                    href={profile.project.url}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {fact.title}
+                    <span className="sr-only"> ({copy.common.newTab})</span>
+                  </a>
+                ) : (
+                  fact.title
+                )}
+                <small>{fact.detail}</small>
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </Reveal>
     </section>
   );
 }

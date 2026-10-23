@@ -1,26 +1,83 @@
-import { ArrowUpRight, Github, Instagram, Mail, Phone } from "lucide-react";
+import {
+  ArrowUpRight,
+  GithubLogo,
+  InstagramLogo,
+  WhatsappLogo,
+  EnvelopeSimple,
+} from "@phosphor-icons/react";
 import { profile } from "../../data/profile";
-
-const contacts = [
-  { label: "GitHub", detail: "Codice, progetti ed esperimenti", href: profile.contacts.github, icon: Github },
-  { label: "Instagram", detail: "Un lato più personale", href: profile.contacts.instagram, icon: Instagram },
-  { label: "WhatsApp", detail: "Una conversazione diretta", href: profile.contacts.whatsapp, icon: Phone },
-];
+import { useLanguage } from "../../i18n/LanguageProvider";
+import Reveal from "../ui/Reveal";
 
 export default function Contacts() {
+  const { copy } = useLanguage();
+  const socials = [
+    { name: "GitHub", key: "github", Icon: GithubLogo },
+    { name: "Instagram", key: "instagram", Icon: InstagramLogo },
+    { name: "WhatsApp", key: "whatsapp", Icon: WhatsappLogo },
+  ];
   return (
-    <section id="contact" className="contact-section" aria-labelledby="contact-heading">
-      <p className="section-label">Restiamo in contatto</p>
-      <h1 id="contact-heading">Le belle idee iniziano<br />con un <em>ciao.</em></h1>
-      <p className="contacts-text">Un progetto da sviluppare, un’opportunità o un’idea da condividere? Mi fa piacere parlarne. Scegli il canale che preferisci.</p>
-      <a className="contact-email" href={profile.contacts.email}>
-        <span><Mail size={23} strokeWidth={1.5} aria-hidden="true" /><span><small>Scrivimi un’email</small><strong>{profile.contacts.email.replace("mailto:", "")}</strong></span></span>
-        <ArrowUpRight size={28} strokeWidth={1.5} aria-hidden="true" />
-      </a>
-      <div className="contacts-grid">
-        {contacts.map(({ label, detail, href, icon: Icon }) => <a key={label} href={href} target="_blank" rel="noopener noreferrer" className="contact-card"><Icon size={22} strokeWidth={1.5} aria-hidden="true" /><span><strong>{label}</strong><small>{detail}</small></span><ArrowUpRight size={18} aria-hidden="true" /></a>)}
+    <section
+      className="section page-section contacts-section"
+      aria-labelledby="contact-title"
+    >
+      <Reveal className="contact-heading">
+        <p className="eyebrow">{copy.contact.label}</p>
+        <h1 id="contact-title">
+          {copy.contact.title}
+          <em>{copy.contact.accent}</em>
+        </h1>
+        <p className="contact-intro">{copy.contact.intro}</p>
+      </Reveal>
+      <div className="contact-grid">
+        <Reveal>
+          <a className="email-card" href={profile.contacts.email}>
+            <span className="email-icon">
+              <EnvelopeSimple size={32} weight="light" aria-hidden="true" />
+            </span>
+            <span className="eyebrow">{copy.contact.email}</span>
+            <span className="email-address">
+              lcretella23
+              <wbr />
+              @gmail.com
+            </span>
+            <span className="email-card-bottom">
+              {copy.contact.emailAction}
+              <span>
+                <ArrowUpRight size={26} aria-hidden="true" />
+              </span>
+            </span>
+          </a>
+        </Reveal>
+        <Reveal delay={0.08}>
+          <p className="eyebrow social-heading">{copy.contact.elsewhere}</p>
+          <ul className="social-list">
+            {socials.map(({ name, key, Icon }) => (
+              <li key={key}>
+                <a
+                  href={profile.contacts[key]}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <Icon size={26} weight="light" aria-hidden="true" />
+                  <span>
+                    <strong>{name}</strong>
+                    <small>{copy.contact[key]}</small>
+                    <span className="sr-only"> ({copy.common.newTab})</span>
+                  </span>
+                  <ArrowUpRight size={22} aria-hidden="true" />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </Reveal>
       </div>
-      <p className="contact-note"><span className="status-dot" /> Aperto a nuove opportunità e collaborazioni.</p>
+      <Reveal>
+        <p className="availability">
+          <span className="status-dot" />
+          {copy.contact.note}
+        </p>
+      </Reveal>
     </section>
   );
 }
